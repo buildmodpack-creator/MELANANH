@@ -1,6 +1,7 @@
 package me.melananh;
 
 import me.melananh.hud.MelananhInfoHud;
+import me.melananh.modules.BaseBookmark;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.modules.Category;
@@ -12,6 +13,7 @@ public class MelananhAddon extends MeteorAddon {
     @Override
     public void onInitialize() {
         Hud.get().register(MelananhInfoHud.INFO);
+        Modules.get().add(new BaseBookmark());
     }
 
     @Override
