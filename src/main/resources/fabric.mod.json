@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "melananh",
+  "version": "${version}",
+  "name": "MẸ LAN ANH",
+  "description": "Client-side addon framework for Meteor Client.",
+  "environment": "client",
+  "entrypoints": {
+    "meteor": ["me.melananh.MelananhAddon"]
+  },
+  "depends": {
+    "java": ">=21",
+    "minecraft": "${minecraft_version}",
+    "fabricloader": ">=${loader_version}",
+    "meteor-client": "*"
+  }
+}
