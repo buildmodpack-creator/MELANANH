@@ -4,8 +4,8 @@ A lightweight client-side addon framework for Minecraft 1.21.4, Fabric, and Mete
 
 ## Included
 - Addon category registration.
-- Configurable Info HUD with independent toggles for coordinates, FPS, and dimension.
-- Text-shadow toggle.
+- Configurable Info HUD with independent toggles for coordinates, FPS, dimension, health, hunger, and world time.
+- Text-shadow toggle and lightweight status display.
 - HUD editor support for placement and scale.
 - GitHub Actions build workflow.
 
