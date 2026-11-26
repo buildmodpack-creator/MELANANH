@@ -41,6 +41,8 @@ public class MelananhInfoHud extends HudElement {
         .name("show-absorption").description("Display absorption hearts.").defaultValue(false).build());
     private final Setting<Boolean> showGroundState = settings.getDefaultGroup().add(new BoolSetting.Builder()
         .name("show-ground-state").description("Display whether the player is on the ground.").defaultValue(false).build());
+    private final Setting<Boolean> showVelocity = settings.getDefaultGroup().add(new BoolSetting.Builder()
+        .name("show-velocity").description("Display local movement velocity.").defaultValue(false).build());
     private final Setting<Boolean> showWorldTime = settings.getDefaultGroup().add(new BoolSetting.Builder()
         .name("show-world-time").description("Display Minecraft world time.").defaultValue(false).build());
     private final Setting<Boolean> shadow = settings.getDefaultGroup().add(new BoolSetting.Builder()
@@ -99,6 +101,12 @@ public class MelananhInfoHud extends HudElement {
         }
         if (showAbsorption.get()) lines.add(inGame ? String.format(java.util.Locale.ROOT, "ABSORB: %.1f", mc.player.getAbsorptionAmount()) : "ABSORB: --");
         if (showGroundState.get()) lines.add(inGame ? "GROUND: " + (mc.player.isOnGround() ? "yes" : "no") : "GROUND: --");
+        if (showVelocity.get()) {
+            if (inGame) {
+                net.minecraft.util.math.Vec3d velocity = mc.player.getVelocity();
+                lines.add(String.format(java.util.Locale.ROOT, "VEL: %.3f / %.3f / %.3f", velocity.x, velocity.y, velocity.z));
+            } else lines.add("VEL: -- / -- / --");
+        }
         if (showArmorDurability.get()) lines.add(inGame ? armorDurabilityText() : "ARMOR: --");
         if (showWorldTime.get()) {
             if (inGame) {
