@@ -35,6 +35,10 @@ public class MelananhInfoHud extends HudElement {
         .name("show-armor-durability").description("Display remaining durability of worn armor.").defaultValue(false).build());
     private final Setting<Boolean> showHeldItem = settings.getDefaultGroup().add(new BoolSetting.Builder()
         .name("show-held-item").description("Display the name and count of the held item.").defaultValue(false).build());
+    private final Setting<Boolean> showHeldDurability = settings.getDefaultGroup().add(new BoolSetting.Builder()
+        .name("show-held-durability").description("Display remaining durability of a damageable held item.").defaultValue(false).build());
+    private final Setting<Boolean> showAbsorption = settings.getDefaultGroup().add(new BoolSetting.Builder()
+        .name("show-absorption").description("Display absorption hearts.").defaultValue(false).build());
     private final Setting<Boolean> showWorldTime = settings.getDefaultGroup().add(new BoolSetting.Builder()
         .name("show-world-time").description("Display Minecraft world time.").defaultValue(false).build());
     private final Setting<Boolean> shadow = settings.getDefaultGroup().add(new BoolSetting.Builder()
@@ -85,6 +89,13 @@ public class MelananhInfoHud extends HudElement {
                 lines.add("ITEM: " + (held.isEmpty() ? "empty" : held.getName().getString() + " x" + held.getCount()));
             } else lines.add("ITEM: --");
         }
+        if (showHeldDurability.get()) {
+            if (inGame) {
+                ItemStack held = mc.player.getMainHandStack();
+                lines.add("DURABILITY: " + (held.isEmpty() || !held.isDamageable() ? "--" : (held.getMaxDamage() - held.getDamage()) + "/" + held.getMaxDamage()));
+            } else lines.add("DURABILITY: --");
+        }
+        if (showAbsorption.get()) lines.add(inGame ? String.format(java.util.Locale.ROOT, "ABSORB: %.1f", mc.player.getAbsorptionAmount()) : "ABSORB: --");
         if (showArmorDurability.get()) lines.add(inGame ? armorDurabilityText() : "ARMOR: --");
         if (showWorldTime.get()) {
             if (inGame) {
