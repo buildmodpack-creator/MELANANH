@@ -39,6 +39,8 @@ public class MelananhInfoHud extends HudElement {
         .name("show-held-durability").description("Display remaining durability of a damageable held item.").defaultValue(false).build());
     private final Setting<Boolean> showAbsorption = settings.getDefaultGroup().add(new BoolSetting.Builder()
         .name("show-absorption").description("Display absorption hearts.").defaultValue(false).build());
+    private final Setting<Boolean> showGroundState = settings.getDefaultGroup().add(new BoolSetting.Builder()
+        .name("show-ground-state").description("Display whether the player is on the ground.").defaultValue(false).build());
     private final Setting<Boolean> showWorldTime = settings.getDefaultGroup().add(new BoolSetting.Builder()
         .name("show-world-time").description("Display Minecraft world time.").defaultValue(false).build());
     private final Setting<Boolean> shadow = settings.getDefaultGroup().add(new BoolSetting.Builder()
@@ -96,6 +98,7 @@ public class MelananhInfoHud extends HudElement {
             } else lines.add("DURABILITY: --");
         }
         if (showAbsorption.get()) lines.add(inGame ? String.format(java.util.Locale.ROOT, "ABSORB: %.1f", mc.player.getAbsorptionAmount()) : "ABSORB: --");
+        if (showGroundState.get()) lines.add(inGame ? "GROUND: " + (mc.player.isOnGround() ? "yes" : "no") : "GROUND: --");
         if (showArmorDurability.get()) lines.add(inGame ? armorDurabilityText() : "ARMOR: --");
         if (showWorldTime.get()) {
             if (inGame) {
