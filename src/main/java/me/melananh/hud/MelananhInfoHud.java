@@ -33,6 +33,8 @@ public class MelananhInfoHud extends HudElement {
         .name("show-food").description("Display hunger level.").defaultValue(true).build());
     private final Setting<Boolean> showArmorDurability = settings.getDefaultGroup().add(new BoolSetting.Builder()
         .name("show-armor-durability").description("Display remaining durability of worn armor.").defaultValue(false).build());
+    private final Setting<Boolean> showHeldItem = settings.getDefaultGroup().add(new BoolSetting.Builder()
+        .name("show-held-item").description("Display the name and count of the held item.").defaultValue(false).build());
     private final Setting<Boolean> showWorldTime = settings.getDefaultGroup().add(new BoolSetting.Builder()
         .name("show-world-time").description("Display Minecraft world time.").defaultValue(false).build());
     private final Setting<Boolean> shadow = settings.getDefaultGroup().add(new BoolSetting.Builder()
@@ -77,6 +79,12 @@ public class MelananhInfoHud extends HudElement {
         if (showRotation.get()) lines.add(inGame ? String.format(java.util.Locale.ROOT, "ROT: yaw %.1f / pitch %.1f", mc.player.getYaw(), mc.player.getPitch()) : "ROT: -- / --");
         if (showHealth.get()) lines.add(inGame ? String.format(java.util.Locale.ROOT, "HP: %.1f / %.1f", mc.player.getHealth(), mc.player.getMaxHealth()) : "HP: --");
         if (showFood.get()) lines.add(inGame ? "FOOD: " + mc.player.getHungerManager().getFoodLevel() + " / 20" : "FOOD: --");
+        if (showHeldItem.get()) {
+            if (inGame) {
+                ItemStack held = mc.player.getMainHandStack();
+                lines.add("ITEM: " + (held.isEmpty() ? "empty" : held.getName().getString() + " x" + held.getCount()));
+            } else lines.add("ITEM: --");
+        }
         if (showArmorDurability.get()) lines.add(inGame ? armorDurabilityText() : "ARMOR: --");
         if (showWorldTime.get()) {
             if (inGame) {
