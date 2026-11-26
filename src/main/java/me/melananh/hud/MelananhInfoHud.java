@@ -12,12 +12,24 @@ import net.minecraft.util.math.BlockPos;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
-/** Lightweight player information HUD for mobile-friendly layouts. */
+/** Lightweight configurable player information HUD. */
 public class MelananhInfoHud extends HudElement {
     public static final HudElementInfo<MelananhInfoHud> INFO =
-        new HudElementInfo<>(Hud.GROUP, "melananh-info", "Displays coordinates, FPS and dimension.", MelananhInfoHud::new);
+        new HudElementInfo<>(Hud.GROUP, "melananh-info", "Displays selected player information.", MelananhInfoHud::new);
 
     private final SettingGroup general = settings.getDefaultGroup();
+
+    private final Setting<Boolean> showCoordinates = general.add(new BoolSetting.Builder()
+        .name("show-coordinates")
+        .description("Display the player's block coordinates.")
+        .defaultValue(true)
+        .build());
+
+    private final Setting<Boolean> showFps = general.add(new BoolSetting.Builder()
+        .name("show-fps")
+        .description("Display client frames per second.")
+        .defaultValue(true)
+        .build());
 
     private final Setting<Boolean> showDimension = general.add(new BoolSetting.Builder()
         .name("show-dimension")
@@ -54,15 +66,18 @@ public class MelananhInfoHud extends HudElement {
             dimension = "DIM: minecraft:overworld";
         }
 
-        String fps = "FPS: " + mc.getCurrentFps();
-        String[] lines = showDimension.get() ? new String[] { coords, fps, dimension } : new String[] { coords, fps };
+        java.util.ArrayList<String> lines = new java.util.ArrayList<>();
+        if (showCoordinates.get()) lines.add(coords);
+        if (showFps.get()) lines.add("FPS: " + mc.getCurrentFps());
+        if (showDimension.get()) lines.add(dimension);
+
         double lineHeight = renderer.textHeight(drawShadow, scale) + 2;
         double width = 0;
         for (String line : lines) width = Math.max(width, renderer.textWidth(line, drawShadow, scale));
-        setSize(width + 4, lineHeight * lines.length + 2);
+        setSize(Math.max(4, width + 4), Math.max(4, lineHeight * lines.size() + 2));
 
-        for (int i = 0; i < lines.length; i++) {
-            renderer.text(lines[i], x + 2, y + 2 + i * lineHeight, textColor, drawShadow, scale);
+        for (int i = 0; i < lines.size(); i++) {
+            renderer.text(lines.get(i), x + 2, y + 2 + i * lineHeight, textColor, drawShadow, scale);
         }
     }
 }
