@@ -1,6 +1,8 @@
 package me.melananh;
 
+import me.melananh.hud.MelananhInfoHud;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
+import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 
@@ -9,7 +11,7 @@ public class MelananhAddon extends MeteorAddon {
 
     @Override
     public void onInitialize() {
-        // Feature modules will be registered here as they are implemented.
+        Hud.get().register(MelananhInfoHud.INFO);
     }
 
     @Override
