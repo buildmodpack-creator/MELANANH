@@ -1,26 +1,27 @@
-# MẸ LAN ANH (melananh)
+# MẸ LAN ANH
 
-Client-side addon for Minecraft **1.21.4**, Fabric and Meteor Client.
+A lightweight client-side addon framework for Minecraft 1.21.4, Fabric, and Meteor Client.
 
-## Implemented
-- [x] Meteor addon entrypoint and category registration
-- [x] Lightweight info HUD: block coordinates, client FPS, and dimension
-- [x] HUD settings for dimension visibility and text shadow
-- [x] GitHub Actions build workflow
+## Included
+- Addon category registration.
+- Configurable Info HUD with independent toggles for coordinates, FPS, and dimension.
+- Text-shadow toggle.
+- HUD editor support for placement and scale.
+- GitHub Actions build workflow.
 
-## Build and install
+## Build
 Requires Java 21 and Gradle 8.12+.
 
 ```sh
 gradle build
 ```
 
-The build produces JAR files under `build/libs/`. Copy the regular `melananh-<version>.jar` into the Meteor addons/mods location used by your launcher. The `-sources.jar` file is source code and is not the installable addon.
+The JAR is generated under `build/libs`.
 
-## HUD
-After loading the addon, open Meteor's HUD editor and add **MELANANH Info**. It displays:
-- Current block coordinates (X/Y/Z)
-- Client FPS
-- Current dimension (optional)
+## Install
+1. Use Minecraft 1.21.4 with Fabric Loader and Meteor Client.
+2. Copy the addon JAR into the instance's `mods` folder.
+3. In Meteor HUD settings, add **MELANANH Info**.
+4. Toggle the HUD rows and move it using the HUD editor.
 
-The HUD is lightweight and avoids scanning entities or chunks.
+This project is currently a foundation/UI utility addon; PvP combat automation, raid/base targeting, and anti-cheat bypass features are not included.
