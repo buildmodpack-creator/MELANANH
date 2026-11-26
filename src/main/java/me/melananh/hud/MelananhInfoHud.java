@@ -23,6 +23,8 @@ public class MelananhInfoHud extends HudElement {
         .name("show-fps").description("Display client frames per second.").defaultValue(true).build());
     private final Setting<Boolean> showDimension = settings.getDefaultGroup().add(new BoolSetting.Builder()
         .name("show-dimension").description("Display the current dimension.").defaultValue(true).build());
+    private final Setting<Boolean> showFacing = settings.getDefaultGroup().add(new BoolSetting.Builder()
+        .name("show-facing").description("Display the direction the player is facing.").defaultValue(false).build());
     private final Setting<Boolean> showHealth = settings.getDefaultGroup().add(new BoolSetting.Builder()
         .name("show-health").description("Display current and maximum health.").defaultValue(true).build());
     private final Setting<Boolean> showFood = settings.getDefaultGroup().add(new BoolSetting.Builder()
@@ -69,6 +71,7 @@ public class MelananhInfoHud extends HudElement {
         }
         if (showFps.get()) lines.add("FPS: " + mc.getCurrentFps());
         if (showDimension.get()) lines.add(inGame ? "DIM: " + mc.world.getRegistryKey().getValue() : (isInEditor() ? "DIM: minecraft:overworld" : "DIM: --"));
+        if (showFacing.get()) lines.add(inGame ? "FACING: " + mc.player.getHorizontalFacing().getName().toUpperCase(java.util.Locale.ROOT) : "FACING: --");
         if (showHealth.get()) lines.add(inGame ? String.format(java.util.Locale.ROOT, "HP: %.1f / %.1f", mc.player.getHealth(), mc.player.getMaxHealth()) : "HP: --");
         if (showFood.get()) lines.add(inGame ? "FOOD: " + mc.player.getHungerManager().getFoodLevel() + " / 20" : "FOOD: --");
         if (showArmorDurability.get()) lines.add(inGame ? armorDurabilityText() : "ARMOR: --");
